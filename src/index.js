@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import './index.css';
+import './styles.css'
 // import App from './App';
 
 //пример 1
@@ -41,8 +42,8 @@ const AppList = () => {
   )
 }
 //компонент 2
-const AppHeader = () => {
-  return <h1>dfsgsdfgsdfgds</h1>
+const AppHeader1 = () => {
+  return <h1>Привет</h1>
 }
 
 //компонент 3
@@ -87,16 +88,36 @@ const AppInput = ({placeholder, label}) => {
   )
 }
 
+// const App = () => {
+//   return (
+//     <>
+//       <AppHeader />
+//       <AppList />
+//       <AppInput placeholder='Введите ваше имя' label='Имя' />
+//       <AppInput placeholder='Введите пароль' label='Пароль' />
+//     </>
+//   )
+// }
+
+
+//пример 5 стили - className
+
+
+
+const AppHeader = () => {
+  return <h1 className='header-title'>Привет</h1>
+}
+
 const App = () => {
   return (
     <>
       <AppHeader />
       <AppList />
       <AppInput placeholder='Введите ваше имя' label='Имя' />
+      <AppInput placeholder='Введите пароль' label='Пароль' />
     </>
   )
 }
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
