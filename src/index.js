@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom/client';
 //пример 1
 // const element = React.createElement(
 //   'h1', //имя тега
-//   null, //какая то фигня
+//   null, //какая-то фигня
 //   'Hello' // содержимое - текст
 // )
 
