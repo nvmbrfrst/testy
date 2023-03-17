@@ -67,30 +67,40 @@ const App1 = () => {
 //пример 4 PROPS
 
 //компонент 3
-const AppInput = (props) => {
+// const AppInput = (props) => {
+//   return (
+//     <label className='label'>
+//       {props.label}
+
+//       <input placeholder={props.placeholder} type='password' />
+//     </label>
+//   )
+// }
+
+const AppInput = ({placeholder, label}) => {
   return (
     <label className='label'>
-      {props.label}
+      {label}
 
-      <input placeholder={props.placeholder} type='password' />
-      </label>
-      )
+      <input placeholder={placeholder} type='password' />
+    </label>
+  )
 }
 
 const App = () => {
   return (
-      <>
-        <AppHeader />
-        <AppList />
-        <AppInput placeholder='Введите ваше имя' label='Имя' />
-      </>
-      )
+    <>
+      <AppHeader />
+      <AppList />
+      <AppInput placeholder='Введите ваше имя' label='Имя' />
+    </>
+  )
 }
 
 
-      const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
-      root.render(<App />);
+root.render(<App />);
 
 
 
