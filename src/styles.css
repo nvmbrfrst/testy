@@ -7,3 +7,13 @@
     color: white;
     background-color: red;
 }
+
+/* add styles -   index.html - <div id="root"></div> #root */
+#root {
+    background-image: url('./images/bg.jpg');
+}
+
+/* add pictures */
+.image {
+max-width: 50px;
+}

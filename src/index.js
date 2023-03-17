@@ -1,8 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import './index.css';
+
 import './styles.css'
-// import App from './App';
+import logoHuinya from './images/ReactLogo.png';
+
+// import svg as Path
+// import logoHuinyaSvg from './images/logo.svg';
+
+// import svg as Component
+import { ReactComponent as Logo } from './images/logo.svg';
+
+
 
 //пример 1
 // const element = React.createElement(
@@ -78,7 +86,7 @@ const App1 = () => {
 //   )
 // }
 
-const AppInput = ({placeholder, label}) => {
+const AppInput = ({ placeholder, label }) => {
   return (
     <label className='label'>
       {label}
@@ -102,15 +110,28 @@ const AppInput = ({placeholder, label}) => {
 
 //пример 5 стили - className
 
+// const AppHeader = () => {
+//   return <h1 className='header-title'>Привет</h1>
+// }
 
+// add image
 
 const AppHeader = () => {
-  return <h1 className='header-title'>Привет</h1>
+  return (
+    <div>
+      <Logo />
+      {/* <img className='image' src={logoHuinyaSvg} /> */}
+      <img className='image' src={logoHuinya} />
+      <h1 className='header-title'>Привет</h1>
+    </div>
+
+  )
 }
 
 const App = () => {
   return (
     <>
+
       <AppHeader />
       <AppList />
       <AppInput placeholder='Введите ваше имя' label='Имя' />
