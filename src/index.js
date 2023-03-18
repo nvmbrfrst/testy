@@ -86,6 +86,8 @@ const App1 = () => {
 //   )
 // }
 
+
+// БОЛЕЕ ПРАВИЛЬНЫЙ ВАРИАНТ
 const AppInput = ({ placeholder, label }) => {
   return (
     <label className='label'>
@@ -116,7 +118,7 @@ const AppInput = ({ placeholder, label }) => {
 
 // add image
 
-const AppHeader = () => {
+const AppHeader5 = () => {
   return (
     <div>
       <Logo />
@@ -128,11 +130,69 @@ const AppHeader = () => {
   )
 }
 
+// пример 6 Props/передача - title
+
+// const AppHeader = ({title}) => {
+//   return (
+//     <div>
+//       <Logo />
+//       <img className='image' src={logoHuinya} />
+//       <h1 className='header-title'>{title}</h1>
+//     </div>
+
+//   )
+// }
+
+// const App = () => {
+//   return (
+//     <>
+//       <AppHeader title='Привет'/>
+//       <AppHeader title='Привет2'/>
+//       <AppList />
+//       <AppInput placeholder='Введите ваше имя' label='Имя' />
+//       <AppInput placeholder='Введите пароль' label='Пароль' />
+//     </>
+//   )
+// }
+
+
+// пример 7 - children PROPS - 
+// деструктуризация - props = children, title
+
+// const AppHeader = ({title, children}) => {
+//   return (
+//     <div>
+//       {children}
+//       {<h1 className='header-title'>{title}</h1>}
+//     </div>
+
+//   )
+// }
+
+// пример 7.2 - children PROPS - 
+// без деструктуризации - props = children, title
+
+const AppHeader = (props) => {
+  return (
+    <div>
+      {props.children}
+      {props.title && <h1 className='header-title'>{props.title}</h1>}
+    </div>
+
+  )
+}
+
 const App = () => {
   return (
     <>
+      <AppHeader title='it is title'>
+        <Logo />
+        <img className='image' src={logoHuinya} />
+        <p>any texts</p>
+        <p>any texts</p>
+        <p>any texts</p>
+      </AppHeader>
 
-      <AppHeader />
       <AppList />
       <AppInput placeholder='Введите ваше имя' label='Имя' />
       <AppInput placeholder='Введите пароль' label='Пароль' />
@@ -140,8 +200,27 @@ const App = () => {
   )
 }
 
+
+
+//ВАЖНЫЕ СТРОКИ
+
+// сборка ВСЕХ элементов
+// const App = () => {
+//   return (
+//     <>
+
+//       <AppHeader />
+//       <AppList />
+//       <AppInput placeholder='Введите ваше имя' label='Имя' />
+//       <AppInput placeholder='Введите пароль' label='Пароль' />
+//     </>
+//   )
+// }
+
+// создание реактдом
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+// отрисовка 
 root.render(<App />);
 
 
