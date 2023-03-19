@@ -12,12 +12,18 @@ export function Card({
 }) 
 {
 
+// расчитать скидку
+  const discount_price = Math.round(price - (price * discount) / 100);
+
   return (
     <article className="card">
 
       {/* иконка со скидкой */}
       <div className="card__sticky card__sticky_type_top-left">
-        <span className="card__discount">{`-${discount}%`}</span>
+
+        
+      { discount !== 0 &&  
+      (<span className="card__discount">{`-${discount}%`}</span>)}
       </div>
 
       {/* иконка лайка  */}
@@ -44,7 +50,7 @@ export function Card({
           {/* скидка */}
           {discount !== 0 && (
             <span className="card__price card__price_type_discount">
-              {price}&nbsp;₽
+              {discount_price}&nbsp;₽
             </span>
           )}
 
