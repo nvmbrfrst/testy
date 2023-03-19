@@ -1,9 +1,17 @@
-
 import "./styles.css";
 import likeIcon from '../../images/save.svg';
 
-export function Card({ name, price, discount, wight, description, picture, ...props }) {
-  console.log(props);
+export function Card({ 
+  name, 
+  price, 
+  discount, 
+  wight, 
+  description, 
+  picture, 
+  ...props 
+}) 
+{
+
   return (
     <article className="card">
 
