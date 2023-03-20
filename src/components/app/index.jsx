@@ -29,7 +29,7 @@ export function App() {
     e.preventDefault();
     handleRequest();
   }
-  
+
   // функция для изменения состояния
   function handleInputChange(dataInput) {
     setSearchQuery(dataInput);
@@ -49,7 +49,9 @@ export function App() {
         />
       </Header>
       <main className="content container">
-
+        
+        {/* добавление инлайн стиля */}
+        <h1 style={{ color: 'red' }}>Стилизованный заголовок</h1>
         <Sort />
 
         <CardList goods={cards} />
