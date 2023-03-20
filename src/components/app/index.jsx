@@ -49,9 +49,9 @@ export function App() {
         />
       </Header>
       <main className="content container">
-        
+
         {/* добавление инлайн стиля */}
-        <h1 style={{ color: 'red' }}>Стилизованный заголовок</h1>
+        {/* <h1 style={{ color: 'red' }}>Стилизованный заголовок</h1> */}
         <Sort />
 
         <CardList goods={cards} />

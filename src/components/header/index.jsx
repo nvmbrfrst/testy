@@ -1,11 +1,12 @@
+// import "./styles.css";
 
+// подключение CSS модуля
+import stylemodule from "./styles.module.css";
 
-import "./styles.css";
-
-export function Header({children}) {
+export function Header({ children }) {
   return (
-    <header className="header">
-      <div className="container header__wrapper">
+    <header className={stylemodule.header}>
+      <div className={`container ${stylemodule.header__wrapper}`}>
         {children}
       </div>
     </header>
