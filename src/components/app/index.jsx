@@ -54,8 +54,8 @@ export function App() {
         {/* добавление инлайн стиля */}
         {/* <h1 style={{ color: 'red' }}>Стилизованный заголовок</h1> */}
         
-        <Button htmlType='button' type="primary" extraClass={s.button}>Купить</Button>
-        <Button htmlType='button' type="secondary">Отложить</Button>
+        {/* <Button htmlType='button' type="primary" extraClass={s.button}>Купить</Button>
+        <Button htmlType='button' type="secondary">Отложить</Button> */}
 
         <Sort />
         <CardList goods={cards} />
