@@ -1,14 +1,20 @@
 // import "./styles.css";
 
 // подключение CSS модуля
-import stylemodule from "./styles.module.css";
+import s from "./styles.module.css";
+
+// подключение библиотеки classname
+import cn from 'classnames';
 
 export function Header({ children }) {
   return (
-    <header className={stylemodule.header}>
-      <div className={`container ${stylemodule.header__wrapper}`}>
-        {children}
-      </div>
+    <header className={s.header}>
+
+{/* // подключение CSS модуля */}
+      {/* <div className={`container ${s.wrapper}`}> */}
+      
+{/* подключение библиотеки classname */}
+<div className={cn('container', s.wrapper)}>{children}</div>
     </header>
   );
 }

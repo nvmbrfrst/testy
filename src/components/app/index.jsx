@@ -6,7 +6,8 @@ import { Sort } from "../sort";
 import { dataCard } from "../../data";
 import { Logo } from '../logo';
 import { Search } from '../search';
-import "./styles.css";
+import s from "./styles.module.css";
+import { Button } from '../button';
 
 export function App() {
 
@@ -52,8 +53,11 @@ export function App() {
 
         {/* добавление инлайн стиля */}
         {/* <h1 style={{ color: 'red' }}>Стилизованный заголовок</h1> */}
-        <Sort />
+        
+        <Button htmlType='button' type="primary" extraClass={s.button}>Купить</Button>
+        <Button htmlType='button' type="secondary">Отложить</Button>
 
+        <Sort />
         <CardList goods={cards} />
 
       </main>
