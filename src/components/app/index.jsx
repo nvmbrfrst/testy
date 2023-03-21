@@ -6,12 +6,11 @@ import { Sort } from "../sort";
 import { dataCard } from "../../data";
 import { Logo } from '../logo';
 import { Search } from '../search';
+import api from '../../utils/api';
 import "./styles.css";
 
 export function App() {
-
-  // передача данных из массива
-  const [cards, setCards] = useState(dataCard);
+  const [cards, setCards] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   // функция для фильтрования стейта при изменении значения
@@ -29,7 +28,7 @@ export function App() {
     e.preventDefault();
     handleRequest();
   }
-  
+
   // функция для изменения состояния
   function handleInputChange(dataInput) {
     setSearchQuery(dataInput);
@@ -38,6 +37,16 @@ export function App() {
   useEffect(() => {
     handleRequest();
   }, [searchQuery]);
+
+  useEffect(() => {
+    api.getProductsList()
+      .then(data => setCards(data.products))
+      .catch(err => console.log(err))
+
+    api.getUserInfo()
+      .then(data => console.log('user', data))
+      .catch(err => console.log(err))
+  },[])
 
   return (
     <>
