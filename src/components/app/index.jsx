@@ -7,18 +7,29 @@ import { dataCard } from "../../data";
 import { Logo } from '../logo';
 import { Search } from '../search';
 import api from '../../utils/api';
+import { useDebounce } from '../../hooks/useDebounce';
 import "./styles.css";
 
 export function App() {
   const [cards, setCards] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const debounceSearchQuery = useDebounce(searchQuery, 300)
+
+// console.log('debounceSearchQuery', 'debounceSearchQuery');
 
   // функция для фильтрования стейта при изменении значения
   function handleRequest() {
-    const filterCards = dataCard.filter((item) =>
-      item.name.includes(searchQuery)
-    );
-    setCards(filterCards);
+    //   const filterCards = dataCard.filter((item) =>
+    //     item.name.includes(searchQuery)
+    //   );
+    //   setCards(filterCards);
+    // }
+    api.search(debounceSearchQuery)
+      .then((dataSearch) => {
+        setCards(dataSearch);
+        // console.log(data);
+      })
   }
 
   // функция нажатия на кнопку поиск
@@ -36,17 +47,16 @@ export function App() {
 
   useEffect(() => {
     handleRequest();
-  }, [searchQuery]);
+  }, [debounceSearchQuery]);
 
   useEffect(() => {
-    api.getProductsList()
-      .then(data => setCards(data.products))
+    api.getAllInfo()
+      .then(([productsData, userInfoData]) => {
+        setCurrentUser(userInfoData);
+        setCards(productsData.products);
+      })
       .catch(err => console.log(err))
-
-    api.getUserInfo()
-      .then(data => console.log('user', data))
-      .catch(err => console.log(err))
-  },[])
+  }, [])
 
   return (
     <>

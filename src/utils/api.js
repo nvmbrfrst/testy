@@ -10,8 +10,19 @@ class Api {
         return res.ok ? res.json() : res.json().then(err => Promise.reject(err))
     }
 
+    getAllInfo() {
+        return Promise.all([this.getProductsList(), this.getUserInfo()])
+    }
+
     getProductsList() {
         return fetch(`${this.#baseurl}/products`, {
+            headers: this.#headers
+        })
+            .then(this.#onResponse)
+    }
+
+    search(searchQuery) {
+        return fetch(`${this.#baseurl}/products/search?query=${searchQuery}`, {
             headers: this.#headers
         })
             .then(this.#onResponse)
