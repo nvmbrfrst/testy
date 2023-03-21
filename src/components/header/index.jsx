@@ -1,13 +1,25 @@
+import cn from 'classnames';
+import { Button } from '../button';
 
+import s from "./styles.module.css";
 
-import "./styles.css";
+export function Header({ children, user, onUpdateUser }) {
 
-export function Header({children}) {
+  const handleClickButtonEdit = () => {
+    onUpdateUser({ name: 'Вася', about: 'Ментор' })
+  }
+
   return (
-    <header className="header">
-      <div className="container header__wrapper">
+    <header className={s.header}>
+      <div className={cn('container', s.wrapper)}>
         {children}
+        <span>{user?.name}: {user?.about}</span>
+        <span>{user?.email}</span>
+        <Button action={handleClickButtonEdit}>
+          Изменить
+        </Button>
       </div>
+
     </header>
   );
 }

@@ -6,6 +6,7 @@ import { Sort } from "../sort";
 import { dataCard } from "../../data";
 import { Logo } from '../logo';
 import { Search } from '../search';
+import { Button } from '../button';
 import api from '../../utils/api';
 import { useDebounce } from '../../hooks/useDebounce';
 import "./styles.css";
@@ -45,6 +46,13 @@ export function App() {
     setSearchQuery(dataInput);
   }
 
+  function handleUpdateUser(dataUserUpdate) {
+    api.setUserInfo(dataUserUpdate)
+      .then((updateUserFromServer) => {
+        setCurrentUser(updateUserFromServer)
+      })
+  }
+
   useEffect(() => {
     handleRequest();
   }, [debounceSearchQuery]);
@@ -60,7 +68,7 @@ export function App() {
 
   return (
     <>
-      <Header>
+      <Header user={currentUser} onUpdateUser={handleUpdateUser}>
         <Logo />
         <Search
           handleFormSubmit={handleFormSubmit}

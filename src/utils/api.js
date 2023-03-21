@@ -21,6 +21,13 @@ class Api {
             .then(this.#onResponse)
     }
 
+    getUserInfo() {
+        return fetch(`${this.#baseurl}/users/me`, {
+            headers: this.#headers
+        })
+            .then(this.#onResponse)
+    }
+
     search(searchQuery) {
         return fetch(`${this.#baseurl}/products/search?query=${searchQuery}`, {
             headers: this.#headers
@@ -28,9 +35,11 @@ class Api {
             .then(this.#onResponse)
     }
 
-    getUserInfo() {
+    setUserInfo({ name, about }) {
         return fetch(`${this.#baseurl}/users/me`, {
-            headers: this.#headers
+            method: 'PATCH',
+            headers: this.#headers,
+            body: JSON.stringify({ name, about })
         })
             .then(this.#onResponse)
     }
