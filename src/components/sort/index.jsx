@@ -1,11 +1,9 @@
-import './styles.css';
+import "./styles.css";
 
 export function Sort() {
   return (
     <>
-    
+      
     </>
   );
 }
-
-
