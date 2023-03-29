@@ -85,17 +85,19 @@ export function App() {
   return (
     <>
       <Header user={currentUser} onUpdateUser={handleUpdateUser}>
-        <Logo />
-
         <Routes>
           <Route path='/' element={
-            <Search
-              handleFormSubmit={handleFormSubmit}
-              handleInputChange={handleInputChange}
-            />
+            <>
+              <Logo />
+              <Search
+                handleFormSubmit={handleFormSubmit}
+                handleInputChange={handleInputChange}
+              />
+            </>
           } />
           <Route path='*' element={<Logo href="/" />} />
         </Routes>
+
       </Header>
       <main className="content container">
 
