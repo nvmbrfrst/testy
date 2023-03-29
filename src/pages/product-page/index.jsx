@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { CardList } from '../../components/card-list'
 import Product from '../../components/product';
 import { Sort } from '../../components/sort'
@@ -8,9 +9,12 @@ import { isLiked } from '../../utils/products';
 
 import s from './styles.module.css';
 
-const ID_PRODUCT = '622c77e877d63f6e70967d22';
+// const ID_PRODUCT = '622c77e877d63f6e70967d22';
 
 export const ProductPage = () => {
+    const { productID } = useParams();
+
+
     const [product, setProduct] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
@@ -25,7 +29,7 @@ export const ProductPage = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        api.getInfoProduct(ID_PRODUCT)
+        api.getInfoProduct(productID)
             .then(([productData, userData]) => {
                 setCurrentUser(userData);
                 setProduct(productData);

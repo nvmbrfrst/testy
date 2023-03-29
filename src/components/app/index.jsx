@@ -102,8 +102,7 @@ export function App() {
         <Routes>
           <Route path='/' element={<CatalogPage cards={cards} handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />} />
           <Route path='/faq' element={<FaqPage />} />
-          <Route path='/product' element={<ProductPage />} />
-          <Route path='*' element={<NotFoundPage />} />
+          <Route path='/product/:productID' element={<ProductPage />} />          <Route path='*' element={<NotFoundPage />} />
         </Routes>
 
         {/*         
