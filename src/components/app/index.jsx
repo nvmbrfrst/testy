@@ -59,12 +59,14 @@ export function App() {
 
   function handleProductLike(product) {
     const like = isLiked(product.likes, currentUser._id)
-    api.changeLikeProductStatus(product._id, like)
+    return api.changeLikeProductStatus(product._id, like)
       .then((updateCard) => {
         const newProducts = cards.map(cardState => {
           return cardState._id === updateCard._id ? updateCard : cardState
         })
         setCards(newProducts)
+
+        return updateCard;
       })
   }
 
