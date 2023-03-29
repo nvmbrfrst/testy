@@ -16,6 +16,7 @@ import { CatalogPage } from '../../pages/catalog-page';
 import { ProductPage } from '../../pages/product-page';
 import FaqPage from '../../pages/faq-page';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { NotFoundPage } from "../../pages/not-found-page";
 
 export function App() {
   const [cards, setCards] = useState([]);
@@ -85,10 +86,16 @@ export function App() {
     <>
       <Header user={currentUser} onUpdateUser={handleUpdateUser}>
         <Logo />
-        <Search
-          handleFormSubmit={handleFormSubmit}
-          handleInputChange={handleInputChange}
-        />
+
+        <Routes>
+          <Route path='/' element={
+            <Search
+              handleFormSubmit={handleFormSubmit}
+              handleInputChange={handleInputChange}
+            />
+          } />
+          <Route path='*' element={<Logo href="/" />} />
+        </Routes>
       </Header>
       <main className="content container">
 
@@ -96,8 +103,9 @@ export function App() {
           <Route path='/' element={<CatalogPage cards={cards} handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />} />
           <Route path='/faq' element={<FaqPage />} />
           <Route path='/product' element={<ProductPage />} />
-
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
+
         {/*         
         <FaqPage />
         <ProductPage />
