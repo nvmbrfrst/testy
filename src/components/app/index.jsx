@@ -17,7 +17,8 @@ import { ProductPage } from '../../pages/product-page';
 import FaqPage from '../../pages/faq-page';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { NotFoundPage } from "../../pages/not-found-page";
-import { UserContext } from "../../contexts/curent-user-context";
+import { UserContext } from "../../contexts/current-user-context";
+import { CardsContext } from "../../contexts/card-context";
 
 export function App() {
   const [cards, setCards] = useState([]);
@@ -84,30 +85,32 @@ export function App() {
   }, [])
 
   return (
-    <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
-      <Header user={currentUser} >
-        <Routes>
-          <Route path='/' element={
-            <>
-              <Logo />
-              <Search
-                handleFormSubmit={handleFormSubmit}
-                handleInputChange={handleInputChange}
-              />
-            </>
-          } />
-          <Route path='*' element={<Logo href="/" />} />
-        </Routes>
+    <CardsContext.Provider value={{ cards, handleLike: handleProductLike }}>
+      <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
+        <Header user={currentUser} >
+          <Routes>
+            <Route path='/' element={
+              <>
+                <Logo />
+                <Search
+                  handleFormSubmit={handleFormSubmit}
+                  handleInputChange={handleInputChange}
+                />
+              </>
+            } />
+            <Route path='*' element={<Logo href="/" />} />
+          </Routes>
 
-      </Header>
-      <main className="content container">
-        <Routes>
-          <Route path='/' element={<CatalogPage cards={cards} handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />} />
-          <Route path='/faq' element={<FaqPage />} />
-          <Route path='/product/:productID' element={<ProductPage />} />          <Route path='*' element={<NotFoundPage />} />
-        </Routes>
-      </main>
-      <Footer />
-    </UserContext.Provider>
+        </Header>
+        <main className="content container">
+          <Routes>
+            <Route path='/' element={<CatalogPage handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />} />
+            <Route path='/faq' element={<FaqPage />} />
+            <Route path='/product/:productID' element={<ProductPage />} />          <Route path='*' element={<NotFoundPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </UserContext.Provider>
+    </CardsContext.Provider>
   );
 }

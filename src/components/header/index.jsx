@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useContext } from 'react';
-import { UserContext } from '../../contexts/curent-user-context';
+import { UserContext } from '../../contexts/current-user-context';
 import { Button } from '../button';
 
 import s from "./styles.module.css";
