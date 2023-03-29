@@ -15,6 +15,7 @@ import { isLiked } from '../../utils/products';
 import { CatalogPage } from '../../pages/catalog-page';
 import { ProductPage } from '../../pages/product-page';
 import FaqPage from '../../pages/faq-page';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 
 export function App() {
   const [cards, setCards] = useState([]);
@@ -90,9 +91,17 @@ export function App() {
         />
       </Header>
       <main className="content container">
+
+        <Routes>
+          <Route path='/' element={<CatalogPage cards={cards} handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />} />
+          <Route path='/faq' element={<FaqPage />} />
+          <Route path='/product' element={<ProductPage />} />
+
+        </Routes>
+        {/*         
         <FaqPage />
         <ProductPage />
-        <CatalogPage cards={cards} handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />
+        <CatalogPage cards={cards} handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} /> */}
       </main>
       <Footer />
     </>
