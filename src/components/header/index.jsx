@@ -4,10 +4,12 @@ import { UserContext } from '../../contexts/current-user-context';
 import { Button } from '../button';
 
 import s from "./styles.module.css";
+import "./styles.css";
+import { ThemeContext } from '../../contexts/theme-context';
 
 export function Header({ children }) {
-
   const { currentUser, onUpdateUser } = useContext(UserContext);
+  const { toggleTheme } = useContext(ThemeContext)
 
   const handleClickButtonEdit = () => {
     onUpdateUser({ name: 'Вася', about: 'Ментор' })
@@ -22,6 +24,13 @@ export function Header({ children }) {
         <Button action={handleClickButtonEdit}>
           Изменить
         </Button> */}
+        <label class="wraper" for="something">
+          <div class="switch-wrap">
+            <input type="checkbox" id="something" onChange={toggleTheme} />
+            <div class="switch"></div>
+          </div>
+        </label>
+
       </div>
 
     </header>
