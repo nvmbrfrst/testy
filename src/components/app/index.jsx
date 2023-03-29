@@ -17,6 +17,7 @@ import { ProductPage } from '../../pages/product-page';
 import FaqPage from '../../pages/faq-page';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { NotFoundPage } from "../../pages/not-found-page";
+import { UserContext } from "../../contexts/curent-user-context";
 
 export function App() {
   const [cards, setCards] = useState([]);
@@ -83,8 +84,8 @@ export function App() {
   }, [])
 
   return (
-    <>
-      <Header user={currentUser} onUpdateUser={handleUpdateUser}>
+    <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
+      <Header user={currentUser} >
         <Routes>
           <Route path='/' element={
             <>
@@ -100,19 +101,13 @@ export function App() {
 
       </Header>
       <main className="content container">
-
         <Routes>
           <Route path='/' element={<CatalogPage cards={cards} handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />} />
           <Route path='/faq' element={<FaqPage />} />
           <Route path='/product/:productID' element={<ProductPage />} />          <Route path='*' element={<NotFoundPage />} />
         </Routes>
-
-        {/*         
-        <FaqPage />
-        <ProductPage />
-        <CatalogPage cards={cards} handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} /> */}
       </main>
       <Footer />
-    </>
+    </UserContext.Provider>
   );
 }

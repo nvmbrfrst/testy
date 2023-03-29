@@ -1,9 +1,13 @@
 import cn from 'classnames';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/curent-user-context';
 import { Button } from '../button';
 
 import s from "./styles.module.css";
 
-export function Header({ children, user, onUpdateUser }) {
+export function Header({ children }) {
+
+  const { currentUser, onUpdateUser } = useContext(UserContext);
 
   const handleClickButtonEdit = () => {
     onUpdateUser({ name: 'Вася', about: 'Ментор' })
@@ -13,8 +17,8 @@ export function Header({ children, user, onUpdateUser }) {
     <header className={s.header}>
       <div className={cn('container', s.wrapper)}>
         {children}
-        {/* <span>{user?.name}: {user?.about}</span>
-        <span>{user?.email}</span>
+        {/* <span>{currentUser?.name}: {currentUser?.about}</span>
+        <span>{currentUser?.email}</span>
         <Button action={handleClickButtonEdit}>
           Изменить
         </Button> */}
