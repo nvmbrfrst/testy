@@ -13,11 +13,11 @@ export function Header({ children, user, onUpdateUser }) {
     <header className={s.header}>
       <div className={cn('container', s.wrapper)}>
         {children}
-        <span>{user?.name}: {user?.about}</span>
+        {/* <span>{user?.name}: {user?.about}</span>
         <span>{user?.email}</span>
         <Button action={handleClickButtonEdit}>
           Изменить
-        </Button>
+        </Button> */}
       </div>
 
     </header>
