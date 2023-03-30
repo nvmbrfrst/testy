@@ -24,7 +24,7 @@ export function Header({ children }) {
         <Button action={handleClickButtonEdit}>
           Изменить
         </Button> */}
-        <label className="wraper" for="something">
+        <label className="wraper" htmlFor="something">
           <div className="switch-wrap">
             <input type="checkbox" id="something" onChange={toggleTheme} />
             <div className="switch"></div>
