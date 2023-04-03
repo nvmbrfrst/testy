@@ -6,9 +6,13 @@ import s from './styles.module.css';
 import { ReactComponent as LikeIcon } from "../../images/save.svg";
 import truck from "../../images/truck.svg";
 import quality from "../../images/quality.svg";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/current-user-context';
+// import { ContentHeader } from '../content-header';
 
-function Product({ onProductLike, _id, name, pictures, description, discount, price, likes = [], currentUser, reviews }) {
+function Product({ onProductLike, _id, name, pictures, description, discount, price, likes = [], reviews }) {
+    const { currentUser } = useContext(UserContext)
     const navigate = useNavigate();
     const discount_price = calcDiscountPrice(price, discount);
     const like = isLiked(likes, currentUser?._id);
