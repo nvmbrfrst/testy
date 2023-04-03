@@ -4,12 +4,12 @@ import { useContext } from 'react';
 // import { Button } from '../button';
 
 import s from "./styles.module.css";
-import "./styles.css";
-import { ThemeContext } from '../../contexts/theme-context';
+// import "./styles.css";
+// import { ThemeContext } from '../../contexts/theme-context';
 
 export function Header({ children }) {
   // const { currentUser, onUpdateUser } = useContext(UserContext);
-  const { toggleTheme } = useContext(ThemeContext)
+  // const { toggleTheme } = useContext(ThemeContext)
 
   // const handleClickButtonEdit = () => {
   //   onUpdateUser({ name: 'Вася', about: 'Ментор' })
@@ -24,12 +24,12 @@ export function Header({ children }) {
         <Button action={handleClickButtonEdit}>
           Изменить
         </Button> */}
-        <label className="wraper" htmlFor="something">
+        {/* <label className="wraper" htmlFor="something">
           <div className="switch-wrap">
             <input type="checkbox" id="something" onChange={toggleTheme} />
             <div className="switch"></div>
           </div>
-        </label>
+        </label> */}
 
       </div>
 
