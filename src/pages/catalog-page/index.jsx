@@ -4,7 +4,7 @@ import { Sort } from '../../components/sort'
 
 import { CardsContext } from '../../contexts/card-context';
 import { ContentHeader } from '../../components/content-header';
-// import { TABS } from '../../utils/constants';
+import { TABS } from '../../utils/constants';
 
 
 export const CatalogPage = () => {
@@ -12,7 +12,7 @@ export const CatalogPage = () => {
     return (
         <>
             <ContentHeader title="Каталог" textButton="Главная" to="/" />
-            {/* <Sort tabs={TABS} currentSort="discount" onChangeSort={(data) => console.log(data)} /> */}
+            <Sort tabs={TABS} currentSort="discount" onChangeSort={(data) => console.log(data)} />
             <CardList goods={goods} />
         </>
     )
