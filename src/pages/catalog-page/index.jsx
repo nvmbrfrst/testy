@@ -1,9 +1,7 @@
 import { useContext } from 'react';
 import { CardList } from '../../components/card-list'
 import { Sort } from '../../components/sort'
-import { Spinner } from '../../components/spinner';
 
-import s from './styles.module.css';
 import { CardsContext } from '../../contexts/card-context';
 import { ContentHeader } from '../../components/content-header';
 // import { TABS } from '../../utils/constants';

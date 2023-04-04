@@ -101,7 +101,7 @@ export function App() {
   }, [])
 
   return (
-    <CardsContext.Provider value={{ cards, favorites, handleLike: handleProductLike }}>
+    <CardsContext.Provider value={{ cards, favorites, handleLike: handleProductLike,isLoading }}>
       <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
         <Header user={currentUser} >
           <Routes>
