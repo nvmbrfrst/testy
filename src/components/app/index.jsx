@@ -70,6 +70,12 @@ export function App() {
         })
         setCards(newProducts)
 
+        if (!like) {
+          setFavorites(prevState => [...prevState, updateCard])
+        } else {
+          setFavorites(prevState => prevState.filter(card => card._id !== updateCard._id))
+        }
+
         return updateCard;
       })
   }
@@ -88,7 +94,7 @@ export function App() {
 
         const favoriteProducts = productsData.products.filter(item => isLiked(item.likes, userInfoData._id))
         setFavorites(favoriteProducts)
-        
+
       })
       .catch(err => console.log(err))
       .finally(() => { setIsLoading(false) })
