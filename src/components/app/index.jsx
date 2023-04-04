@@ -19,10 +19,12 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { NotFoundPage } from "../../pages/not-found-page";
 import { UserContext } from "../../contexts/current-user-context";
 import { CardsContext } from "../../contexts/card-context";
+import { FavoritesPage } from "../../pages/favorite-page";
 // import { ThemeContext, themes } from '../../contexts/theme-context';
 
 export function App() {
   const [cards, setCards] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false)
@@ -83,6 +85,10 @@ export function App() {
       .then(([productsData, userInfoData]) => {
         setCurrentUser(userInfoData);
         setCards(productsData.products);
+
+        const favoriteProducts = productsData.products.filter(item => isLiked(item.likes, userInfoData._id))
+        setFavorites(favoriteProducts)
+        
       })
       .catch(err => console.log(err))
       .finally(() => { setIsLoading(false) })
@@ -94,7 +100,7 @@ export function App() {
 
   return (
     // <ThemeContext.Provider value={{ theme, toggleTheme }}>
-    <CardsContext.Provider value={{ cards, handleLike: handleProductLike }}>
+    <CardsContext.Provider value={{ cards, favorites, handleLike: handleProductLike }}>
       <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
         <Header user={currentUser} >
           <Routes>
@@ -115,6 +121,7 @@ export function App() {
           <main className="content container">
         <Routes>
           <Route path='/' element={<CatalogPage handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />} />
+          <Route path='/favorites' element={<FavoritesPage />} />
           <Route path='/faq' element={<FaqPage />} />
           <Route path='/product/:productID' element={<ProductPage />} />          <Route path='*' element={<NotFoundPage />} />
         </Routes>
