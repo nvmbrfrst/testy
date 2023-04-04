@@ -7,8 +7,8 @@ import { Logo } from "../logo";
 import { Search } from "../search";
 import { dataCard } from "../../data";
 import s from "./styles.module.css";
-import { Button } from '../button';
-// import styled from 'styled-components';
+// import { Button } from '../button';
+
 import api from '../../utils/api';
 import { useDebounce } from '../../hooks/useDebounce';
 import { isLiked } from '../../utils/products';
@@ -41,7 +41,7 @@ export function App() {
     api.search(debounceSearchQuery)
       .then((dataSearch) => {
         setCards(dataSearch);
-        // console.log(data);
+
       })
   }
 
@@ -100,12 +100,7 @@ export function App() {
       .finally(() => { setIsLoading(false) })
   }, [])
 
-  // function toggleTheme() {
-  //   theme === themes.dark ? setTheme(themes.light) : setTheme(themes.dark);
-  // }
-
   return (
-    // <ThemeContext.Provider value={{ theme, toggleTheme }}>
     <CardsContext.Provider value={{ cards, favorites, handleLike: handleProductLike }}>
       <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
         <Header user={currentUser} >

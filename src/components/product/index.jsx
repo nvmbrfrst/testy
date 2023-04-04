@@ -9,7 +9,7 @@ import quality from "../../images/quality.svg";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/current-user-context';
-// import { ContentHeader } from '../content-header';
+import { ContentHeader } from '../content-header';
 
 function Product({ onProductLike, _id, name, pictures, description, discount, price, likes = [], reviews }) {
     const { currentUser } = useContext(UserContext)
@@ -26,11 +26,9 @@ function Product({ onProductLike, _id, name, pictures, description, discount, pr
 
     return (
         <>
-            <div className={s.header}>
-                <a href="#" className='button-back' onClick={() => navigate(-1)}>Назад</a>
-                <h1 className={s.productTitle}>{name}</h1>
-                <p className={s.articul}>Артикул: <b>2388907</b></p>
-            </div>
+            <ContentHeader textButton="Назад" title={name}>
+                <p className={s.acticul}>Артикул: <b>2388907</b></p>
+            </ContentHeader>
             <div className={s.product}>
                 <div className={s.imgWrapper}>
                     <img src={pictures} alt={`Изображение ${name}`} />
