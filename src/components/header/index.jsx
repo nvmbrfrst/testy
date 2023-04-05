@@ -11,7 +11,7 @@ import { ReactComponent as FavoriteIcon } from './img/favorites.svg'
 export function Header({ children }) {
   const { currentUser, onUpdateUser } = useContext(UserContext);
   const { favorites } = useContext(CardsContext)
-  
+  console.log('currentUser', currentUser);
   const handleClickButtonEdit = () => {
     onUpdateUser({ name: 'Вася', about: 'Ментор' })
   }
