@@ -21,6 +21,8 @@ import { UserContext } from "../../contexts/current-user-context";
 import { CardsContext } from "../../contexts/card-context";
 import { FavoritesPage } from "../../pages/favorite-page";
 import { TABS_ID } from "../../utils/constants";
+import Form from "../form";
+import RegisterForm from "../form/register-form";
 
 export function App() {
   const [cards, setCards] = useState([]);
@@ -31,6 +33,8 @@ export function App() {
   const [currentSort, setCurrentSort] = useState("")
 
   const debounceSearchQuery = useDebounce(searchQuery, 300);
+
+  const [contacts, setContacts] = useState([])
 
   function handleRequest() {
     // const filterCards = dataCard.filter((item) =>
@@ -111,43 +115,57 @@ export function App() {
 
   }
 
-  return (
-      <CardsContext.Provider value={{
-        cards,
-        favorites,
-        currentSort,
-        handleLike: handleProductLike,
-        isLoading,
-        onSortData: sortedData,
-        setCurrentSort
-      }}>
-        <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
-          <Header user={currentUser}>
-            <Routes>
-              <Route path='/' element={
-                <>
-                  <Logo />
-                  <Search
-                    handleFormSubmit={handleFormSubmit}
-                    handleInputChange={handleInputChange}
-                  />
-                </>
-              } />
-              <Route path='*' element={<Logo href="/" />} />
-            </Routes>
+  function addContact(dataInfo) {
+    setContacts([...contacts, dataInfo])
+  }
 
-          </Header>
-          <main className="content container" >
-            <Routes>
-              <Route path='/' element={<CatalogPage handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />} />
-              <Route path='/favorites' element={<FavoritesPage />} />
-              <Route path='/faq' element={<FaqPage />} />
-              <Route path='/product/:productID' element={<ProductPage />} />
-              <Route path='*' element={<NotFoundPage />} />
-            </Routes>
-          </main>
-          <Footer />
-        </UserContext.Provider>
-      </CardsContext.Provider >
+
+  return (
+    <CardsContext.Provider value={{
+      cards,
+      favorites,
+      currentSort,
+      handleLike: handleProductLike,
+      isLoading,
+      onSortData: sortedData,
+      setCurrentSort
+    }}>
+      <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
+
+        {/* form/index */}
+        {/* <Form handleForm={addContact} />
+        {contacts.map(contact => <p>{`${contact.name},${contact.lastame},${contact.phoneNumber}`}</p>)} */}
+
+        {/* form/register-form */}
+        <RegisterForm />
+
+
+        <Header user={currentUser}>
+          <Routes>
+            <Route path='/' element={
+              <>
+                <Logo />
+                <Search
+                  handleFormSubmit={handleFormSubmit}
+                  handleInputChange={handleInputChange}
+                />
+              </>
+            } />
+            <Route path='*' element={<Logo href="/" />} />
+          </Routes>
+
+        </Header>
+        <main className="content container" >
+          <Routes>
+            <Route path='/' element={<CatalogPage handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />} />
+            <Route path='/favorites' element={<FavoritesPage />} />
+            <Route path='/faq' element={<FaqPage />} />
+            <Route path='/product/:productID' element={<ProductPage />} />
+            <Route path='*' element={<NotFoundPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </UserContext.Provider>
+    </CardsContext.Provider >
   );
 }
