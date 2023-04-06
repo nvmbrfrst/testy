@@ -23,6 +23,7 @@ import { FavoritesPage } from "../../pages/favorite-page";
 import { TABS_ID } from "../../utils/constants";
 import Form from "../form";
 import RegisterForm from "../form/register-form";
+import Modal from "../modal";
 
 export function App() {
   const [cards, setCards] = useState([]);
@@ -35,6 +36,13 @@ export function App() {
   const debounceSearchQuery = useDebounce(searchQuery, 300);
 
   const [contacts, setContacts] = useState([])
+
+  const [modalFormStatus, setModalFormStatus] = useState(true)
+  const onCloseModalForm = () => {
+    setModalFormStatus(false)
+  }
+
+
 
   function handleRequest() {
     // const filterCards = dataCard.filter((item) =>
@@ -132,12 +140,21 @@ export function App() {
     }}>
       <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
 
-        {/* form/index */}
+        {/* components/form/index */}
         {/* <Form handleForm={addContact} />
         {contacts.map(contact => <p>{`${contact.name},${contact.lastame},${contact.phoneNumber}`}</p>)} */}
 
-        {/* form/register-form */}
-        <RegisterForm />
+        {/* components/form/register-form */}
+        {/* <RegisterForm /> */}
+
+        {/* components/modal */}
+        <Modal isOpen={modalFormStatus} onClose={onCloseModalForm}>
+          <RegisterForm />
+        </Modal>
+
+        {/* <Modal isOpen={true}>
+          <RegisterForm />
+        </Modal> */}
 
 
         <Header user={currentUser}>
