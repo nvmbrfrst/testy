@@ -12,16 +12,7 @@ import { UserContext } from '../../contexts/current-user-context';
 import { ContentHeader } from '../content-header';
 import Rating from '../rating';
 
-function Product({ 
-    onProductLike, 
-    _id, 
-    name, 
-    pictures, 
-    description, 
-    discount, 
-    price, 
-    likes = [], reviews }) {
-
+function Product({ onProductLike, _id, name, pictures, description, discount, price, likes = [], reviews }) {
     const { currentUser } = useContext(UserContext)
     const [currentRating, setCurrentRating] = useState(5);
     const navigate = useNavigate();
