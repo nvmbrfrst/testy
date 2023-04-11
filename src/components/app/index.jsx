@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { CardList } from "../card-list";
+// import { CardList } from "../card-list";
 import { Footer } from "../footer";
 import { Header } from "../header";
-import { Sort } from "../sort";
+// import { Sort } from "../sort";
 import { Logo } from "../logo";
 import { Search } from "../search";
-import { dataCard } from "../../data";
-import s from "./styles.module.css";
+// import { dataCard } from "../../data";
+// import s from "./styles.module.css";
 // import { Button } from '../button';
 
 import api from '../../utils/api';
@@ -15,15 +15,18 @@ import { isLiked } from '../../utils/products';
 import { CatalogPage } from '../../pages/catalog-page';
 import { ProductPage } from '../../pages/product-page';
 import FaqPage from '../../pages/faq-page';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import { NotFoundPage } from "../../pages/not-found-page";
-import { UserContext } from "../../contexts/current-user-context";
-import { CardsContext } from "../../contexts/card-context";
-import { FavoritesPage } from "../../pages/favorite-page";
-import { TABS_ID } from "../../utils/constants";
-import Form from "../form";
-import RegisterForm from "../form/register-form";
-import Modal from "../modal";
+import { BrowserRouter, Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { NotFoundPage } from '../../pages/not-found-page';
+import { UserContext } from '../../contexts/current-user-context';
+import { CardsContext } from '../../contexts/card-context';
+// import { ThemeContext, themes } from '../../contexts/theme-context';
+import { FavoritesPage } from '../../pages/favorite-page';
+import { TABS_ID } from '../../utils/constants';
+// import Form from '../form';
+import Modal from '../modal';
+import Register from '../register';
+import Login from '../login';
+import ResetPassword from '../reset-password';
 
 export function App() {
   const [cards, setCards] = useState([]);
@@ -31,17 +34,28 @@ export function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false)
+  // const [theme, setTheme] = useState(themes.light);
   const [currentSort, setCurrentSort] = useState("")
 
-  const debounceSearchQuery = useDebounce(searchQuery, 300);
+  const [modalFormStatus, setModalFormStatus] = useState(false)
 
   const [contacts, setContacts] = useState([])
+  const debounceSearchQuery = useDebounce(searchQuery, 300);
 
-  const [modalFormStatus, setModalFormStatus] = useState(true)
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  const backgroundLocation = location.state?.backgroundLocation;
+
+  const initialPath = location.state?.initialPath;
+
   const onCloseModalForm = () => {
     setModalFormStatus(false)
   }
 
+  const onCloseRoutingModal = () => {
+    navigate(initialPath || '/', { replace: true })
+  }
 
 
   function handleRequest() {
@@ -53,7 +67,6 @@ export function App() {
     api.search(debounceSearchQuery)
       .then((dataSearch) => {
         setCards(dataSearch);
-
       })
   }
 
@@ -103,16 +116,15 @@ export function App() {
       .then(([productsData, userInfoData]) => {
         setCurrentUser(userInfoData);
         setCards(productsData.products);
-
-        const favoriteProducts = productsData.products.filter(item => isLiked(item.likes, userInfoData._id))
+        const favoriteProducts = productsData.products.filter(item => isLiked(item.likes, userInfoData._id)) //синхронный код, выпролнить сразу
         setFavorites(favoriteProducts)
-
       })
       .catch(err => console.log(err))
       .finally(() => { setIsLoading(false) })
   }, [])
 
   function sortedData(currentSort) {
+    console.log(currentSort);
 
     switch (currentSort) {
       case (TABS_ID.CHEAP): setCards(cards.sort((a, b) => a.price - b.price)); break;
@@ -123,66 +135,114 @@ export function App() {
 
   }
 
+  // function toggleTheme() {
+  //   theme === themes.dark ? setTheme(themes.light) : setTheme(themes.dark);
+  // }
+
   function addContact(dataInfo) {
     setContacts([...contacts, dataInfo])
   }
 
+  const cbSubmitFormLoginRegister = (dataForm) => {
+    console.log('cbSubmitFormLoginRegister', dataForm);
+  }
+  const cbSubmitFormLogin = (dataForm) => {
+    console.log('cbSubmitFormLogin', dataForm);
+  }
+  const cbSubmitFormResetPassword = (dataForm) => {
+    console.log('cbSubmitFormResetPassword', dataForm);
+  }
+
+  const handleClickButtonLogin = (e) => {
+    e.preventDefault();
+    navigate('/login', { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } })
+  }
+  const handleClickButtonReset = (e) => {
+    e.preventDefault();
+    navigate('/reset-password', { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } })
+  }
+  const handleClickButtonRegister = (e) => {
+    e.preventDefault();
+    navigate('/register', { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } })
+  }
+  const handleClickButtonResetNotModal = (e) => {
+    e.preventDefault();
+    navigate('/reset-password')
+  }
+  const handleClickButtonRegisterNotModal = (e) => {
+    e.preventDefault();
+    navigate('/register')
+  }
+  const handleClickButtonLoginNotModal = (e) => {
+    e.preventDefault();
+    navigate('/login')
+  }
 
   return (
-    <CardsContext.Provider value={{
-      cards,
-      favorites,
-      currentSort,
-      handleLike: handleProductLike,
-      isLoading,
-      onSortData: sortedData,
-      setCurrentSort
-    }}>
-      <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
+    // <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <CardsContext.Provider value={{
+        cards,
+        favorites,
+        currentSort,
+        handleLike: handleProductLike,
+        isLoading,
+        onSortData: sortedData,
+        setCurrentSort
+      }}>
+        <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
+          <Header user={currentUser}>
+            <Routes location={(backgroundLocation && { ...backgroundLocation, pathname: initialPath }) || location}>
+              <Route path='/' element={
+                <>
+                  <Logo />
+                  <Search
+                    handleFormSubmit={handleFormSubmit}
+                    handleInputChange={handleInputChange}
+                  />
+                </>
+              } />
+              <Route path='*' element={<Logo href="/" />} />
+            </Routes>
+          </Header>
+          <main className="content container">
+            <Routes location={(backgroundLocation && { ...backgroundLocation, pathname: initialPath }) || location}>
+              <Route path='/' element={<CatalogPage handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />} />
+              <Route path='/favorites' element={<FavoritesPage />} />
+              <Route path='/faq' element={<FaqPage />} />
+              <Route path='/product/:productID' element={<ProductPage />} />
 
-        {/* components/form/index */}
-        {/* <Form handleForm={addContact} />
-        {contacts.map(contact => <p>{`${contact.name},${contact.lastame},${contact.phoneNumber}`}</p>)} */}
-
-        {/* components/form/register-form */}
-        {/* <RegisterForm /> */}
-
-        {/* components/modal */}
-        <Modal isOpen={modalFormStatus} onClose={onCloseModalForm}>
-          <RegisterForm />
-        </Modal>
-
-        {/* <Modal isOpen={true}>
-          <RegisterForm />
-        </Modal> */}
-
-
-        <Header user={currentUser}>
-          <Routes>
-            <Route path='/' element={
-              <>
-                <Logo />
-                <Search
-                  handleFormSubmit={handleFormSubmit}
-                  handleInputChange={handleInputChange}
-                />
-              </>
+              <Route path='/login' element={
+                <Login onSubmit={cbSubmitFormLogin} onNavigateRegister={handleClickButtonRegisterNotModal} onNavigateReset={handleClickButtonResetNotModal} />
+              } />
+              <Route path='/register' element={
+                <Register onSubmit={cbSubmitFormLoginRegister} onNavigateLogin={handleClickButtonLoginNotModal} />
+              } />
+              <Route path='/reset-password' element={
+                <ResetPassword onSubmit={cbSubmitFormResetPassword} />
+              } />
+              <Route path='*' element={<NotFoundPage />} />
+            </Routes>
+          </main>
+          <Footer />
+          {backgroundLocation && <Routes>
+            <Route path='/login' element={
+              <Modal isOpen onClose={onCloseRoutingModal}>
+                <Login onSubmit={cbSubmitFormLogin} onNavigateRegister={handleClickButtonRegister} onNavigateReset={handleClickButtonReset} />
+              </Modal>
             } />
-            <Route path='*' element={<Logo href="/" />} />
-          </Routes>
-
-        </Header>
-        <main className="content container" >
-          <Routes>
-            <Route path='/' element={<CatalogPage handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />} />
-            <Route path='/favorites' element={<FavoritesPage />} />
-            <Route path='/faq' element={<FaqPage />} />
-            <Route path='/product/:productID' element={<ProductPage />} />
-            <Route path='*' element={<NotFoundPage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </UserContext.Provider>
-    </CardsContext.Provider >
+            <Route path='/register' element={
+              <Modal isOpen onClose={onCloseRoutingModal}>
+                <Register onSubmit={cbSubmitFormLoginRegister} onNavigateLogin={handleClickButtonLogin} />
+              </Modal>
+            } />
+            <Route path='/reset-password' element={
+              <Modal isOpen onClose={onCloseRoutingModal}>
+                <ResetPassword onSubmit={cbSubmitFormResetPassword} />
+              </Modal>
+            } />
+          </Routes>}
+        </UserContext.Provider>
+      </CardsContext.Provider >
+    // </ThemeContext.Provider >
   );
 }
