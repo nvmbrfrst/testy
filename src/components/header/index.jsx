@@ -3,6 +3,12 @@ import { useContext } from 'react';
 import { UserContext } from '../../contexts/current-user-context';
 import { Button } from '../button';
 
+// import { ReactComponent as FavoriteIcon } from './img/favorites.svg'
+import { ReactComponent as LogoutIcon } from './img/logout.svg';
+import { ReactComponent as CartIcon } from './img/cart.svg';
+import { ReactComponent as ProfileIcon } from './img/profile.svg';
+import { ReactComponent as UserIcon } from './img/user.svg';
+
 import s from "./styles.module.css";
 import "./styles.css";
 import { CardsContext } from '../../contexts/card-context';
@@ -22,11 +28,21 @@ export function Header({ children }) {
       <div className={cn('container', s.wrapper)}>
         {children}
         <div className={s.iconsMenu}>
+
           <Link className={s.favoritesLink} to={{ pathname: '/favorites' }}>
             <FavoriteIcon />
             {favorites.length !== 0 && <span className={s.iconBubble}>{favorites.length}</span>}
           </Link>
-          <Link to='/login' replace state={{ backgroundLocation: location, initialPath: location.pathname }}>Войти</Link>
+
+          <Link className={s.favoritesLink} to={{ pathname: '/cart' }}>
+            <CartIcon />
+            {favorites.length !== 0 && <span className={s.iconBubble}>{favorites.length}</span>}
+          </Link>
+
+          <Link to='/login' className={s.iconsMenuItem} replace state={{ backgroundLocation: location, initialPath: location.pathname }}>
+            <UserIcon />
+            Войти
+          </Link>        
         </div>
       </div>
 
