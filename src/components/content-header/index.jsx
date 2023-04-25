@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import s from "./styles.module.css";
-
 const PREV_PAGE = -1;
-
 export function ContentHeader({ title, children, to, textButton }) {
     return (
         <>

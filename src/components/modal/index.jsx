@@ -6,6 +6,17 @@ import { useEffect, useRef } from 'react';
 function Modal({ children, isOpen, onClose }) {
     const refModal = useRef(null)
 
+    // function handleClickModal() {
+    //     refModal.current.classList.remove(s.modal_active)
+    //     setTimeout(onClose, 400)
+    // }
+    // useEffect(() => {
+    //     if (isOpen) {
+    //         setTimeout(() => { refModal.current.classList.add(s.modal_active) }, 100)
+    //     }
+    // }, [isOpen])
+
+
     const renderContent = () => {
         if (!isOpen) return null
         return (<div ref={refModal} className={cn(s.modal, { [s.modal_active]: isOpen })} onMouseDown={onClose}>

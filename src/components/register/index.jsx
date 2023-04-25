@@ -50,7 +50,7 @@ function Register({ onSubmit, onNavigateLogin }) {
 
             <p className="infoText">Регистрируясь на сайте, вы соглашаетесь с нашими Правилами и Политикой конфиденциальности и соглашаетесь на информационную рассылку.</p>
 
-            <FormButton type="submit" color="primary">Зарегистрироваться</FormButton>
+            <FormButton type="submit" color="pramary">Зарегистрироваться</FormButton>
             <FormButton type="button" color="secondary" onClick={onNavigateLogin}>Войти</FormButton>
         </Form>
 
